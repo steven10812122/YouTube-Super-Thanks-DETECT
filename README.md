@@ -14,6 +14,9 @@ This project estimates the "Super Thanks" amount under YouTube videos using Pyth
 
 ##Usage
 Run the script to start detecting the "Super Thanks" amount under a YouTube video.
+1.find the line : VIDEO_URL =" ", and switch " url "  to your yt url link.
+2. run the python code.
+3. wait for the result.
 
 ##Contributing
 1. Fork this repository.
