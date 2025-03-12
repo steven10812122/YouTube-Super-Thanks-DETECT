@@ -11,12 +11,16 @@ VIDEO_URL = "your yt url"
 def convert_to_base_currency(amount, currency, base_currency):
     # This function converts a given amount from a foreign currency to the base currency
     exchange_rates = {
-        "USD": {"TWD": 32, "JPY": 110, "EUR": 0.92, "HKD": 7.8, "KRW": 1200},
-        "TWD": {"USD": 0.031, "JPY": 3.42, "EUR": 0.029, "HKD": 0.24, "KRW": 37.5},
-        "JPY": {"USD": 0.0091, "TWD": 0.29, "EUR": 0.0084, "HKD": 0.071, "KRW": 10.91},
-        "EUR": {"USD": 1.09, "TWD": 34.5, "JPY": 119.05, "HKD": 8.44, "KRW": 131.52},
-        "HKD": {"USD": 0.13, "TWD": 4.17, "JPY": 14.19, "EUR": 0.12, "KRW": 15.57},
-        "KRW": {"USD": 0.00083, "TWD": 0.026, "JPY": 0.092, "EUR": 0.0076, "HKD": 0.064},
+        "USD": {"TWD": 32, "JPY": 110, "EUR": 0.92, "HKD": 7.8, "KRW": 1200, "MXN": 17, "BRL": 5, "RUB": 90, "INR": 83, "IDR": 15500, "THB": 35, "TRY": 31, "PLN": 4.3, "VND": 25000, "PHP": 55},
+        "TWD": {"USD": 0.031, "JPY": 3.42, "EUR": 0.029, "HKD": 0.24, "KRW": 37.5, "MXN": 0.53, "BRL": 0.16, "RUB": 2.8, "INR": 2.6, "IDR": 480, "THB": 1.1, "TRY": 1, "PLN": 0.13, "VND": 770, "PHP": 1.7},
+        "JPY": {"USD": 0.0091, "TWD": 0.29, "EUR": 0.0084, "HKD": 0.071, "KRW": 10.91, "MXN": 0.16, "BRL": 0.046, "RUB": 0.82, "INR": 0.75, "IDR": 140, "THB": 0.32, "TRY": 0.28, "PLN": 0.035, "VND": 210, "PHP": 0.47},
+        "EUR": {"USD": 1.09, "TWD": 34.5, "JPY": 119.05, "HKD": 8.44, "KRW": 131.52, "MXN": 18.5, "BRL": 5.3, "RUB": 99, "INR": 90, "IDR": 16800, "THB": 38, "TRY": 33, "PLN": 4.6, "VND": 27000, "PHP": 60},
+        "HKD": {"USD": 0.13, "TWD": 4.17, "JPY": 14.19, "EUR": 0.12, "KRW": 15.57, "MXN": 2.2, "BRL": 0.63, "RUB": 11.8, "INR": 10.7, "IDR": 2000, "THB": 4.5, "TRY": 4, "PLN": 0.55, "VND": 3200, "PHP": 7},
+        "KRW": {"USD": 0.00083, "TWD": 0.026, "JPY": 0.092, "EUR": 0.0076, "HKD": 0.064, "MXN": 0.014, "BRL": 0.004, "RUB": 0.075, "INR": 0.068, "IDR": 12, "THB": 0.027, "TRY": 0.024, "PLN": 0.0033, "VND": 19, "PHP": 0.042},
+        "MXN": {"USD": 0.059, "TWD": 1.88, "JPY": 6.25, "EUR": 0.054, "HKD": 0.45, "KRW": 70, "BRL": 0.29, "RUB": 5.3, "INR": 4.8, "IDR": 850, "THB": 2, "TRY": 1.8, "PLN": 0.25, "VND": 1500, "PHP": 3.3},
+        "BRL": {"USD": 0.2, "TWD": 6.25, "JPY": 21.3, "EUR": 0.19, "HKD": 1.6, "KRW": 250, "MXN": 3.5, "RUB": 18.9, "INR": 16.7, "IDR": 2900, "THB": 6.8, "TRY": 6, "PLN": 0.82, "VND": 5100, "PHP": 11},
+        "RUB": {"USD": 0.011, "TWD": 0.36, "JPY": 1.2, "EUR": 0.01, "HKD": 0.084, "KRW": 13, "MXN": 0.19, "BRL": 0.053, "INR": 0.9, "IDR": 160, "THB": 0.35, "TRY": 0.31, "PLN": 0.04, "VND": 260, "PHP": 0.58},
+        "INR": {"USD": 0.012, "TWD": 0.38, "JPY": 1.3, "EUR": 0.011, "HKD": 0.094, "KRW": 15, "MXN": 0.21, "BRL": 0.06, "RUB": 1.1, "IDR": 180, "THB": 0.41, "TRY": 0.36, "PLN": 0.05, "VND": 290, "PHP": 0.65},
     }
     
     # If base currency and the given currency are the same, no conversion needed
@@ -30,11 +34,14 @@ def convert_to_base_currency(amount, currency, base_currency):
     return amount  # If no conversion is possible, return the original amount
 
 def detect_base_currency_from_language(lang):
-    # Ensure the lang variable is in full format like 'ja-JP', 'zh-Hant-TW', etc.
     if lang == "zh-Hant-TW":  # Traditional Chinese (Taiwan)
         return "TWD"
+    elif lang == "zh-Hans-CN":  # Simplified Chinese (China)
+        return "CNY"
     elif lang == "en-US":  # English (United States)
         return "USD"
+    elif lang == "en-GB":  # English (United Kingdom)
+        return "GBP"
     elif lang == "ja-JP":  # Japanese (Japan)
         return "JPY"
     elif lang == "ko-KR":  # Korean (South Korea)
@@ -45,6 +52,8 @@ def detect_base_currency_from_language(lang):
         return "EUR"
     elif lang == "es-ES":  # Spanish (Spain)
         return "EUR"
+    elif lang == "es-MX":  # Spanish (Mexico)
+        return "MXN"
     elif lang == "pt-BR":  # Portuguese (Brazil)
         return "BRL"
     elif lang == "ru-RU":  # Russian (Russia)
@@ -55,9 +64,19 @@ def detect_base_currency_from_language(lang):
         return "SAR"
     elif lang == "hi-IN":  # Hindi (India)
         return "INR"
-    # Add more language cases as needed
-    return "USD"  # Default to USD if no match
-
+    elif lang == "id-ID":  # Indonesian (Indonesia)
+        return "IDR"
+    elif lang == "th-TH":  # Thai (Thailand)
+        return "THB"
+    elif lang == "tr-TR":  # Turkish (Turkey)
+        return "TRY"
+    elif lang == "pl-PL":  # Polish (Poland)
+        return "PLN"
+    elif lang == "vi-VN":  # Vietnamese (Vietnam)
+        return "VND"
+    elif lang == "tl-PH":  # Tagalog (Philippines)
+        return "PHP"
+    return "USD"
 
 def get_youtube_donations(video_url):
     options = webdriver.ChromeOptions()
@@ -121,13 +140,28 @@ def get_youtube_donations(video_url):
 
 def extract_donations(donations, base_currency):
     currency_totals = {
-        "USD": 0,
-        "TWD": 0,
-        "JPY": 0,
-        "EUR": 0,
-        "HKD": 0,
-        "KRW": 0
+        "USD": 0,  # United States
+        "TWD": 0,  # Taiwan
+        "JPY": 0,  # Japan
+        "EUR": 0,  # Eurozone
+        "HKD": 0,  # Hong Kong
+        "KRW": 0,  # South Korea
+        "BRL": 0,  # Brazil
+        "RUB": 0,  # Russia
+        "INR": 0,  # India
+        "GBP": 0,  # United Kingdom
+        "MXN": 0,  # Mexico
+        "IDR": 0,  # Indonesia
+        "TRY": 0,  # Turkey
+        "SAR": 0,  # Saudi Arabia
+        "THB": 0,  # Thailand
+        "VND": 0,  # Vietnam
+        "PHP": 0,  # Philippines
+        "PLN": 0,  # Poland
+        "CAD": 0,  # Canada
+        "AUD": 0   # Australia
     }
+
     pattern = re.compile(r"(US\$|NT\$|¥|€|HK\$|₩|\$)\s?(\d+[,.]?\d*)")
     donation_data = []  # To store amount information
     
@@ -155,8 +189,28 @@ def extract_donations(donations, base_currency):
                 currency = "HKD"
             elif symbol == "₩":
                 currency = "KRW"
+            elif symbol in ["MX$", "Mex$"]:  # Mexican Peso
+                currency = "MXN"
+            elif symbol == "R$":  # Brazilian Real
+                currency = "BRL"
+            elif symbol == "₽":  # Russian Ruble
+                currency = "RUB"
+            elif symbol == "₹":  # Indian Rupee
+                currency = "INR"
+            elif symbol == "Rp":  # Indonesian Rupiah
+                currency = "IDR"
+            elif symbol == "฿":  # Thai Baht
+                currency = "THB"
+            elif symbol == "₺":  # Turkish Lira
+                currency = "TRY"
+            elif symbol == "zł":  # Polish Złoty
+                currency = "PLN"
+            elif symbol == "₫":  # Vietnamese Dong
+                currency = "VND"
+            elif symbol == "₱":  # Philippine Peso
+                currency = "PHP"
             else:
-                currency = "TWD"
+                currency = "USD"  # Default to USD
 
             # Convert the amount to the base currency
             converted_amount = convert_to_base_currency(amount, currency, base_currency)
